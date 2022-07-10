@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="InternshipSchedule">
+        <addColumn tableName="GROUP_">
+            <column name="NUMBER_" type="INT"/>
+        </addColumn>
+
+        <addNotNullConstraint columnName="NUMBER_" defaultNullValue="0" tableName="GROUP_"/>
+    </changeSet>
+    <changeSet id="2" author="InternshipSchedule">
+        <dropIndex indexName="idx_student_group_id" tableName="student"/>
+    </changeSet>
+    <changeSet id="3" author="InternshipSchedule">
+        <dropColumn columnName="group_number" tableName="group_"/>
+    </changeSet>
+</databaseChangeLog>

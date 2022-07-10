@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://lessonBrowse.caption"
+        focusComponent="lessonsTable">
+    <data readOnly="true">
+        <collection id="lessonsDc"
+                    class="com.company.internshipschedule.entity.Lesson">
+            <fetchPlan extends="_base">
+                <property name="teacher" fetchPlan="_base"/>
+                <property name="group" fetchPlan="_base"/>
+                <property name="room" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="lessonsDl">
+                <query>
+                    <![CDATA[select e from Lesson e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="lessonsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="lessonsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="lessonsTable"
+                    width="100%"
+                    dataContainer="lessonsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="day"/>
+                <column id="time"/>
+                <column id="teacher"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="lessonsTable.create"/>
+                <button id="editBtn" action="lessonsTable.edit"/>
+                <button id="removeBtn" action="lessonsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
