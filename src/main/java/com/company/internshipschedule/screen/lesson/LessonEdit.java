@@ -1,5 +1,6 @@
 package com.company.internshipschedule.screen.lesson;
 
+import com.company.internshipschedule.app.TeacherService;
 import io.jmix.ui.screen.*;
 import com.company.internshipschedule.entity.Lesson;
 
@@ -7,4 +8,5 @@ import com.company.internshipschedule.entity.Lesson;
 @UiDescriptor("lesson-edit.xml")
 @EditedEntityContainer("lessonDc")
 public class LessonEdit extends StandardEditor<Lesson> {
+
 }
