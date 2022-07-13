@@ -3,24 +3,26 @@ package com.company.internshipschedule.app;
 import com.company.internshipschedule.entity.Lesson;
 import com.company.internshipschedule.entity.Teacher;
 import io.jmix.core.DataManager;
+import io.jmix.ui.Notifications;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
-@Service
+@Component
 public class LessonService {
     @Autowired
     private DataManager dataManager;
 
-    public void createLesson(UUID id, LocalDate day, LocalDateTime time, Teacher teacher) {
-        Lesson lesson = dataManager.create(Lesson.class);
-        lesson.setId(id);
-        lesson.setDay(day);
-        lesson.setTime(time);
-        lesson.setTeacher(teacher);
-        dataManager.save(lesson);
+    public boolean isExisted(Teacher teacher, LocalDateTime time) {
+        List<Lesson> data = dataManager.load(Lesson.class)
+                .query("select l from Lesson l where l.teacher = :teacher and l.time = :time")
+                .parameter("teacher", teacher)
+                .parameter("time", time)
+                .list();
+        if ((data != null) || (!data.isEmpty()))
+            return true;
+        else return false;
     }
 }
