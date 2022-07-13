@@ -11,7 +11,7 @@ public class RoomService {
     @Autowired
     private DataManager dataManager;
 
-    public boolean labCapacity (Room r) {
+    public boolean labCapacity() {
         List<Room> rooms = dataManager.load(Room.class)
                 .query("select r from Room r where r.typeOfRoom = :typeOfRoom and r.capacity > :capacity")
                 .parameter("typeOfRoom", 2)

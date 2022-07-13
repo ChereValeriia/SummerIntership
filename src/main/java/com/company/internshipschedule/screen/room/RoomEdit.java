@@ -19,7 +19,7 @@ public class RoomEdit extends StandardEditor<Room> {
     @Subscribe("commitAndCloseBtn")
     public void onCommitAndCloseBtnClick(Button.ClickEvent event) {
         Room r = getEditedEntity();
-        if (roomService.labCapacity(r))
+        if (roomService.labCapacity())
         {
             notifications.create()
                     .withCaption("This type of room can't include more than 1")
