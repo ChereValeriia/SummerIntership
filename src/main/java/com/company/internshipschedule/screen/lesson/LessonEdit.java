@@ -26,25 +26,4 @@ public class LessonEdit extends StandardEditor<Lesson> {
                     .show();
         }
     }
-
-
-/*
-    @Subscribe
-    public void onInitEntity(InitEntityEvent<Lesson> event, Teacher teacher, LocalDateTime time) {
-
-        List<Lesson> data = dataManager.load(Lesson.class)
-                .query("select l from Lesson l where l.teacher = :teacher and l.time = :time")
-                .parameter("teacher", teacher)
-                .parameter("time", time)
-                .list();
-
-        if ((data != null) || (!data.isEmpty()))
-        {
-            notifications.create()
-                    .withCaption("The same lesson is already existed")
-                    .withType(Notifications.NotificationType.WARNING)
-                    .show();
-        }
-        return;
-    }*/
 }
