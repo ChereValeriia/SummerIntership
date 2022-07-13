@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="InternshipSchedule">
+        <addColumn tableName="GROUP_">
+            <column name="LESSON_ID" type="UUID"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="2" author="InternshipSchedule">
+        <createIndex indexName="IDX_GROUP_LESSON_ID" tableName="GROUP_">
+            <column name="LESSON_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="LESSON_ID" baseTableName="GROUP_" constraintName="FK_GROUP__ON_LESSON"
+                                 referencedColumnNames="ID" referencedTableName="LESSON"/>
+    </changeSet>
+    <changeSet id="3" author="InternshipSchedule">
+        <dropForeignKeyConstraint baseTableName="lesson_group_link" constraintName="fk_lesgro_on_group"/>
+    </changeSet>
+    <changeSet id="4" author="InternshipSchedule">
+        <dropForeignKeyConstraint baseTableName="lesson_group_link" constraintName="fk_lesgro_on_lesson"/>
+    </changeSet>
+    <changeSet id="5" author="InternshipSchedule">
+        <dropTable cascadeConstraints="true" tableName="lesson_group_link"/>
+    </changeSet>
+</databaseChangeLog>

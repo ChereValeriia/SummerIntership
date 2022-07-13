@@ -42,10 +42,7 @@ public class Lesson {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Teacher teacher;
 
-    @JoinTable(name = "LESSON_GROUP_LINK",
-            joinColumns = @JoinColumn(name = "LESSON_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"))
-    @ManyToMany
+    @OneToMany(mappedBy = "lesson")
     private List<Group> group;
 
     @DeletedBy

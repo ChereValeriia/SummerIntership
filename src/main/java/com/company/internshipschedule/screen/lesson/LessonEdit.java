@@ -1,13 +1,14 @@
 package com.company.internshipschedule.screen.lesson;
 
+import com.company.internshipschedule.app.LessonService;
+import com.company.internshipschedule.entity.Teacher;
 import io.jmix.core.DataManager;
-import io.jmix.core.FluentValuesLoader;
 import io.jmix.ui.Notifications;
-import io.jmix.ui.action.Action;
 import io.jmix.ui.screen.*;
 import com.company.internshipschedule.entity.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @UiController("Lesson.edit")
@@ -19,13 +20,19 @@ public class LessonEdit extends StandardEditor<Lesson> {
     private Notifications notifications;
     @Autowired
     private DataManager dataManager;
+    @Autowired
+    private LessonService lessonService;
 
     @Subscribe
-    public void onInitEntity(InitEntityEvent<Lesson> event) {
+    public void onInitEntity(InitEntityEvent<Lesson> event, Teacher teacher, LocalDateTime time) {
+
         List<Lesson> data = dataManager.load(Lesson.class)
-                .query("select count(lesson.getTime()), count(lesson.getTeacher()) from Lessons where lesson.time = lesson.getTime() and lesson.teacher = lesson.getTeacher()")
+                .query("select l from Lesson l where l.teacher = :teacher and l.time = :time")
+                .parameter("teacher", teacher)
+                .parameter("time", time)
                 .list();
-        if (data != null)
+
+        if ((data != null) || (!data.isEmpty()))
         {
             notifications.create()
                     .withCaption("The same lesson is already existed")
@@ -34,5 +41,4 @@ public class LessonEdit extends StandardEditor<Lesson> {
         }
         return;
     }
-
 }
