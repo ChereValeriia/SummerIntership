@@ -67,6 +67,7 @@ public class Group {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
+
     @JoinColumn(name = "LESSON_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Lesson lesson;
